@@ -26,7 +26,7 @@ SECRET_KEY = 'n_5+z*+n$-r$lv7i$#=ninzf0281f01ddf_nb!l*=o689e7su&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://softkartpy.herokuapp.com/', 'http://softkartpy.co/']
 
 
 # Application definition
