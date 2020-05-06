@@ -55,7 +55,7 @@ ROOT_URLCONF = 'softkartpy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -115,9 +115,39 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
+# Email Backend
 
-STATIC_URL = '/static/'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtpout.secureserver.net'
+EMAIL_HOST_USER = 'master@softkartpy.co'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = 'softkart@99'
+EMAIL_PORT = 587
+EMAIL_USE_SSL = False
+EMAIL_USE_TLS = True
+
+# Static Files
+
+AWS_ACCESS_KEY_ID = 'PKLION4CQHS7QOGA2WNW'
+AWS_SECRET_ACCESS_KEY = 'TWOfuyGkggDaEkZ2ZLFtmqZ7oHdK14H0yY+DvavPLhI'
+AWS_STORAGE_BUCKET_NAME = 'softkartpy'
+AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com/'
+
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'staticfiles'
+AWS_LOCATION_MEDIA = 'media'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+STATIC_URL = '%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
+MEDIA_URL = '%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION_MEDIA)
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static',"media_root")
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+
 
 django_heroku.settings(locals())
