@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n_5+z*+n$-r$lv7i$#=ninzf0281f01ddf_nb!l*=o689e7su&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['https://softkartpy.herokuapp.com/', 'http://softkartpy.co/']
+ALLOWED_HOSTS = ['softkartpy.appspot.com']
 
 
 # Application definition
@@ -128,26 +127,11 @@ EMAIL_USE_TLS = True
 
 # Static Files
 
-AWS_ACCESS_KEY_ID = 'PKLION4CQHS7QOGA2WNW'
-AWS_SECRET_ACCESS_KEY = 'TWOfuyGkggDaEkZ2ZLFtmqZ7oHdK14H0yY+DvavPLhI'
-AWS_STORAGE_BUCKET_NAME = 'softkartpy'
-AWS_S3_ENDPOINT_URL = 'https://nyc3.digitaloceanspaces.com/'
-
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-AWS_LOCATION = 'staticfiles'
-AWS_LOCATION_MEDIA = 'media'
-
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_URL = '%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION)
-MEDIA_URL = '%s/%s/' % (AWS_S3_ENDPOINT_URL, AWS_LOCATION_MEDIA)
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static',"media_root")
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+ 
+MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 
-
-
-django_heroku.settings(locals())
+STATIC_URL = '/static/'
